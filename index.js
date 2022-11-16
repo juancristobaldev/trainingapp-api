@@ -1,5 +1,30 @@
 //packages
 
+require('dotenv').config({path:'./.env'})
+
+
+const mysql = require('mysql');
+const { JSON } = require('mysql/lib/protocol/constants/types');
+
+const dbUrl = process.env.DATABASE_URL;
+let connection
+
+const connectDB = async () => {
+    if( connection ) return connection
+    try {
+        connection = await mysql.createConnection(dbUrl)
+        connection.connect( err => {
+            if(err) throw err
+            else console.log('Connect to DB succesful')
+        })
+    }catch (err) {
+        console.log('Cant connect to db', process.env.DATABASE_URL, err)
+        process.exit(1)
+    }
+ 
+    return connection
+}
+
 
 const {buildSchema} = require('graphql')
 const {graphqlHTTP} = require('express-graphql')
@@ -63,7 +88,10 @@ const port = process.env.PORT;
 // routes
 
 app.get( '/', (req,res) => {
-    res.send('Api in Vercel')
+    const connection = connectDB()
+    if(connection){
+        res.send('Api on Vercel and Mysql')
+    }else     res.send('Api on Vercel')
 })
 
 app.get('/cookie' ,(req,res) => {
