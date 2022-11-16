@@ -1,0 +1,246 @@
+type User {
+  id: Int
+  user: String!
+  first_name: String!
+  last_name: String!
+  email: String
+  date: String!
+  pass: String!
+  token: String
+  last_workouts: String
+}
+
+type Routine {
+  id: Int
+  token: String!
+  name: String!
+  dones: Int
+  timeRecord: String
+  exercises: String
+}
+
+type Folder {
+  id: Int
+  token: String!
+  name: String!
+  content: String
+}
+
+type Exercise {
+  id: Int
+  token: String!
+  name: String!
+  typeEx: String!
+  muscleEx: String!
+  seriesEx: String!
+}
+type Query {
+  "Obtener todos los usuarios"
+  getUsers: [User]
+
+  "Obtener usuario atraves de token"
+  getUser(token: String!): User
+
+  "Obtener rutinas por token de usuario"
+  getRoutinesByToken(token: String!): [Routine]
+
+  "Obtener rutina por id de rutina"
+  getRoutineById(id: Int!): [Routine]
+
+  "Obtener ejercicios por token de usuario"
+  getExercisesByToken(token: String!): [Exercise]
+
+  "Obtener carpetas por token de usuario"
+  getFoldersByToken(token: String!): [Folder]
+
+  "Obtener carpeta por id"
+  getFolderById(id: Int!): Folder
+}
+
+type CreateUserOutput {
+  errors: String
+  success: Boolean
+}
+
+type DeleteUserOutput {
+  errors: String
+  success: Boolean
+}
+
+type UpdateUserOutput {
+  errors: String
+  success: Boolean
+}
+
+type SignInUserOutput {
+  errors: String
+  success: Boolean
+  token: String
+  user: String
+}
+
+type CreateRoutineOutput {
+  errors: String
+  success: Boolean
+}
+
+type DeleteRoutineOutput {
+  errors: String
+  success: Boolean
+}
+
+type UpdateRoutineOutput {
+  errors: String
+  success: Boolean
+}
+
+type CreateExerciseOutput {
+  errors: String
+  success: Boolean
+}
+
+type DeleteExerciseOutput {
+  errors: String
+  success: Boolean
+}
+
+type UpdateExerciseOutput {
+  errors: String
+  success: Boolean
+}
+
+type CreateFolderOutput {
+  errors: String
+  success: Boolean
+}
+type DeleteFolderOutput {
+  errors: String
+  success: Boolean
+}
+type UpdateFolderOutput {
+  errors: String
+  success: Boolean
+}
+
+type Mutation {
+  "Crea un usuario"
+  createUser(input: UserInput!): CreateUserOutput
+
+  "Eliminar un usuario"
+  deleteUser(input: UserDeleteInput!): DeleteUserOutput
+
+  "Actualizar un usuario"
+  updateUser(input: UserUpdateInput!): UpdateUserOutput
+
+  "Iniciar sesion"
+  userSignIn(input: UserSignInInput!): SignInUserOutput
+
+  "Crear una rutina"
+  createRoutine(input: CreateRoutineInput!): CreateRoutineOutput
+
+  "Eliminar una rutina"
+  deleteRoutine(input: DeleteRoutineInput!): DeleteRoutineOutput
+
+  "Actualizar una rutina"
+  updateRoutine(input: UpdateRoutineInput!): UpdateRoutineOutput
+
+  "Crear un ejercicio"
+  createExercise(input: CreateExerciseInput!): CreateExerciseOutput
+
+  "Eliminar un ejercicio"
+  deleteExercise(input: DeleteExerciseInput!): DeleteExerciseOutput
+
+  "Actualizar un ejercicio"
+  updateExercise(input: UpdateExerciseInput!): UpdateExerciseOutput
+
+  "Crear una carpeta"
+  createFolder(input: CreateFolderInput!): CreateFolderOutput
+
+  "Eliminar una carpeta"
+  deleteFolder(input: DeleteFolderInput!): DeleteFolderOutput
+
+  "Actualizar una carpeta"
+  updateFolder(input: UpdateFolderInput!): UpdateFolderOutput
+}
+
+input UserInput {
+  user: String!
+  first_name: String!
+  last_name: String!
+  email: String!
+  date: String
+  pass: String!
+  last_workouts: String
+}
+
+input UserDeleteInput {
+  token: String!
+}
+input UserUpdateInput {
+  id: Int!
+  user: String
+  email: String
+  pass: String
+  last_workouts: String
+}
+input UserSignInInput {
+  user: String
+  pass: String
+}
+
+input CreateRoutineInput {
+  token: String!
+  name: String!
+  dones: Int
+  timeRecord: String
+  exercises: String
+}
+
+input DeleteRoutineInput {
+  token: String!
+  id: Int!
+}
+
+input UpdateRoutineInput {
+  id: Int!
+  name: String
+  dones: Int
+  timeRecord: String
+  exercises: String
+}
+
+input CreateExerciseInput {
+  token: String!
+  name: String!
+  typeEx: String!
+  muscleEx: String!
+  seriesEx: String!
+}
+
+input DeleteExerciseInput {
+  token: String!
+  name: String!
+}
+
+input UpdateExerciseInput {
+  token: String!
+  name: String
+  seriesEx: String
+}
+
+input CreateFolderInput {
+  token: String!
+  name: String!
+  content: String
+}
+
+input DeleteFolderInput {
+  id: Int!
+  token: String!
+}
+
+input UpdateFolderInput {
+  id: Int!
+  name: String
+  content: String
+}
